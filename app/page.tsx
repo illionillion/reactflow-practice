@@ -15,7 +15,7 @@ function SearchNode({ data }: { data: { label: string; onSearch: (value: string)
       minW="200px"
       boxShadow="0 2px 8px rgba(0,0,0,0.1)"
     >
-      <Handle type="source" position={Position.Top} />
+      <Handle type="source" position={Position.Top} id="top" />
       <Input
         placeholder="検索してください..."
         value={data.searchTerm}
@@ -23,7 +23,7 @@ function SearchNode({ data }: { data: { label: string; onSearch: (value: string)
         border="none"
         outline="none"
       />
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Bottom} id="bottom" />
     </Box>
   );
 }
@@ -192,15 +192,7 @@ export default function Home() {
         // 既存の検索語→結果エッジを削除
         updatedEdges = updatedEdges.filter(edge => !edge.id.startsWith('term-to-'));
         
-        // 新しい検索語→結果エッジを追加
-        const termToResultEdges: Edge[] = matchedResults.map(result => ({
-          id: `term-to-${result.id}`,
-          source: 'search-term',
-          target: result.id,
-          style: { stroke: '#1976d2', strokeWidth: 2 } // 青い線で区別
-        }));
-        
-        updatedEdges = [...updatedEdges, ...termToResultEdges];
+        updatedEdges = [...updatedEdges];
         
         // 結果ノードのエッジの表示/非表示を更新
         return updatedEdges.map(edge => {
