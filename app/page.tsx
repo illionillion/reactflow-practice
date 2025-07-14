@@ -183,12 +183,6 @@ export default function Home() {
           updatedEdges = [...currentEdges, newEdge];
         }
         
-        // 検索語ノードから検索結果への接続線を追加
-        const matchedResults = allResults.filter(result =>
-          result.label.toLowerCase().includes(value.toLowerCase()) ||
-          result.category.toLowerCase().includes(value.toLowerCase())
-        );
-        
         // 既存の検索語→結果エッジを削除
         updatedEdges = updatedEdges.filter(edge => !edge.id.startsWith('term-to-'));
         
